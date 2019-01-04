@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginInfo} from '../login'
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+
+import {   
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators 
+} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +15,24 @@ import {LoginInfo} from '../login'
 })
 export class LoginComponent implements OnInit {
 
-  loginInfo: LoginInfo = {
-    name:'happenzh',
-    pwd:'123456'
+  validateForm: FormGroup;
+
+  submitForm(): void {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[ i ].markAsDirty();
+      this.validateForm.controls[ i ].updateValueAndValidity();
+    }
   }
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+  }
 
-  ngOnInit() {
-    
+  ngOnInit(): void {
+    this.validateForm = this.fb.group({
+      userName: [ null, [ Validators.required ] ],
+      password: [ null, [ Validators.required ] ],
+      remember: [ true ]
+    });
   }
 
 }
