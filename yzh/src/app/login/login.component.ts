@@ -22,9 +22,12 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
+    // 表单对应值
+    console.log(this.validateForm.value);
   }
 
   constructor(private fb: FormBuilder) {
+
   }
 
   ngOnInit(): void {
